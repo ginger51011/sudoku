@@ -25,7 +25,7 @@ class Tester {
 	 * Tests setNumber()
 	 */
 	@Test
-	void testSetNumber() {
+	public final void testSetNumber() {
 		gb.setNumber(5, 1, 1);
 		gb.setNumber(3, 6, 5);
 		try {
