@@ -1,8 +1,10 @@
 package projektet;
 
 public class SudokuApplication {
-
-	public SudokuApplication() {
+	GameBoard gb = new GameBoard();
+	Solver s = new Solver();
+	
+	public static void main(String[] args) {
 		
 	}
 }
