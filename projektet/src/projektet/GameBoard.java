@@ -24,9 +24,19 @@ public class GameBoard {
 		}
 	}
 	
+	/*
+	 * Returns the value of (row, coloumn)
+	 */
+	public Integer getValue(int row, int coloumn) {
+		if (isLegalCoordinate(row, coloumn)) {
+			return board[row][coloumn];
+		}
+		return -1; // Sker aldrig
+	}
+	
 	
 	/*
-	 * Checks if (row, coloumn) is part of the board
+	 * Checks if (row, coloumn) is part of the board, returns true if this is the case.
 	 */
 	private boolean isLegalCoordinate(int row, int coloumn) throws ArrayIndexOutOfBoundsException {
 		if (row < 0 || row > 8 || coloumn < 0 || coloumn > 8) {
