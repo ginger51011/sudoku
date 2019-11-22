@@ -9,23 +9,13 @@ import org.junit.jupiter.api.Test;
 import projektet.GameBoard;
 
 class Tester {
-	GameBoard gb;
-
-	@Before
-	public void setUp() {
-		gb = new GameBoard();
-	}
-	
-	@After
-	public void tearDown() {
-		gb = null;
-	}
+	GameBoard gb = new GameBoard();;
 	
 	/*
 	 * Tests setNumber()
 	 */
 	@Test
-	public final void testSetNumber() {
+	public final GameBoard testSetNumber() {
 		gb.setNumber(5, 1, 1);
 		gb.setNumber(3, 6, 5);
 		try {
@@ -40,19 +30,21 @@ class Tester {
 		} catch (ArrayIndexOutOfBoundsException e) {
 			// Lyckat test
 		}
-		printBoard();
+		return gb;
 	}
 	
 	/*
 	 * Prints the GameBoard
 	 */
-	private void printBoard() {
+	@Test
+	public void testPrintBoard() {
+		gb = testSetNumber();
 		for (int r = 0; r < 8; r++) {
 			for (int c = 0; c < 8; c++) {
 				if (gb.getValue(r, c) == null) {
 					System.out.print(" ");
 				}
-				System.out.print(gb.getValue(r, c));
+				System.out.print(" " + gb.getValue(r, c));
 				if (c == 7) {
 					System.out.println();
 				}

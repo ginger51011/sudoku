@@ -27,7 +27,7 @@ public class GameBoard {
 	/*
 	 * Returns the value of (row, coloumn)
 	 */
-	public Integer getValue(int row, int coloumn) {
+	public Integer getValue(int row, int coloumn) { // Om den ej returnerar Integer kan den ej vara null
 		if (isLegalCoordinate(row, coloumn)) {
 			return board[row][coloumn];
 		}
