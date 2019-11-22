@@ -34,6 +34,16 @@ public class GameBoard {
 		return -1; // Sker aldrig
 	}
 	
+	/* 
+	 * Returns the region of the specified coordinate as a 3x3 Integer matrix
+	 */
+	public Integer[][] getRegion(int row, int coloumn) {
+		Integer[][] region = new Integer[3][3];
+		if (isLegalCoordinate(row, coloumn)) {
+			
+		}
+		return region;
+	}
 	
 	/*
 	 * Checks if (row, coloumn) is part of the board, returns true if this is the case.
