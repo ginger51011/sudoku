@@ -3,8 +3,9 @@ package projektet;
 public class GameBoard {
 	private Integer board[][] = new Integer[9][9]; // Måste vara Integer för att kunna sättas till null
 	
-	/*
+	/**
 	 * Sets the value of the box at row and coloumn to i.
+	 * @param i value to be inserted
 	 */
 	public void setNumber(int i, int row, int coloumn) throws IllegalArgumentException {
 		if (i < 0 || i > 9) {
@@ -15,7 +16,7 @@ public class GameBoard {
 		}
 	}
 	
-	/*
+	/**
 	 * Sets the value of (row, coloumn) to null.
 	 */
 	public void removeNumber(int row, int coloumn) {
@@ -24,8 +25,9 @@ public class GameBoard {
 		}
 	}
 	
-	/*
+	/**
 	 * Returns the value of (row, coloumn)
+	 * @return The value
 	 */
 	public Integer getValue(int row, int coloumn) { // Om den ej returnerar Integer kan den ej vara null
 		if (isLegalCoordinate(row, coloumn)) {
@@ -34,9 +36,9 @@ public class GameBoard {
 		return -1; // Sker aldrig
 	}
 	
-	/* 
-	 * Returns the region of the specified coordinate as a 3x3 Integer matrix
+	/**
 	 * Uses private help method getRegionFromOrigin().
+	 * @return The region of the specified coordinate as a 3x3 Integer matrix
 	 */
 	public Integer[][] getRegion(int row, int coloumn) {
 		if (isLegalCoordinate(row, coloumn)) {
@@ -72,7 +74,7 @@ public class GameBoard {
 	}
 	
 	/*
-	 * Privat help method, returns the 3x3 integer matrix with (0,0) == (row, coloumn)
+	 * Private help method, returns the 3x3 integer matrix with (0,0) == (row, coloumn)
 	 */
 	private Integer[][] getRegionFromOrigin(int row, int coloumn) {
 		Integer[][] region = new Integer[3][3];
@@ -84,8 +86,9 @@ public class GameBoard {
 		return region;
 	}
 	
-	/*
-	 * Checks if (row, coloumn) is part of the board, returns true if this is the case.
+	/**
+	 * Checks if (row, coloumn) is part of the board
+	 * @return true if this is the case.
 	 */
 	private boolean isLegalCoordinate(int row, int coloumn) throws ArrayIndexOutOfBoundsException {
 		if (row < 0 || row > 8 || coloumn < 0 || coloumn > 8) {

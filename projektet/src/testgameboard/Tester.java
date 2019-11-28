@@ -9,7 +9,17 @@ import org.junit.jupiter.api.Test;
 import projektet.GameBoard;
 
 class Tester {
-	GameBoard gb = new GameBoard();;
+	GameBoard gb;
+	
+	@Before
+	public void setUp() {
+		gb = new GameBoard();
+	}
+	
+	@After
+	public void tearDown() {
+		gb = null;
+	}
 	
 	/*
 	 * Tests setNumber()
