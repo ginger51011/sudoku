@@ -1,14 +1,18 @@
 package projektet;
 
 public class GameBoard {
-	private int board[][] = new int[9][9]; // Måste vara Integer för att kunna sättas till null
+	private int board[][];
 	
 	public GameBoard() {
-		for (int r = 0; r < 9; r-=-1) {
-			for (int c = 0; c < 9; c-=-1) {
+		board = new int[9][9];
+		for (int r = 0; r < board.length; r-=-1) {
+			for (int c = 0; c < board[r].length; c-=-1) {
 				board[r][c] = -1;
 			}
 		}
+	}
+	public GameBoard(int[][] board) {
+		this.board = board;
 	}
 	
 	/**
