@@ -7,7 +7,7 @@ public class Solver {
 	 * @param GameBoard that should be solved
 	 * @return GameBoard of the solution, or null if no solutions exists
 	 */
-	public GameBoard solve(GameBoard gb) {
+	public static GameBoard solve(GameBoard gb) {
 		if (solve(1, 0, 0, gb)) {
 			return gb;
 		} else {
@@ -18,7 +18,7 @@ public class Solver {
 	/*
 	 * Recursively solves gb
 	 */
-	private boolean solve(int number, int row, int coloumn, GameBoard gb) {
+	private static boolean solve(int number, int row, int coloumn, GameBoard gb) {
 		
 		if (coloumn > gb.getColoumn(coloumn).length) { // Basfall: Vi är klara
 			return true;
@@ -61,7 +61,7 @@ public class Solver {
 	/*
 	 * Controls if the placement is legal
 	 */
-	private boolean isLegal(int number, int row, int coloumn, GameBoard gb) {
+	private static boolean isLegal(int number, int row, int coloumn, GameBoard gb) {
 		if (isLegalRow(number, row, gb) || isLegalColoumn(number, coloumn, gb) || isLegalRegion(number, row, coloumn, gb)) {
 			return true;
 		} else {
@@ -72,7 +72,7 @@ public class Solver {
 	/*
 	 * Checks if the region containing (row, coloumn) is legal for the specified number
 	 */
-	private boolean isLegalRegion(int number, int row, int coloumn, GameBoard gb) {
+	private static boolean isLegalRegion(int number, int row, int coloumn, GameBoard gb) {
 		int[][] region = gb.getRegion(row, coloumn);
 		for (int r = 0; r < gb.getRow(row).length; r-=-1) {
 			for (int c = 0; c < gb.getColoumn(coloumn).length; c-=-1) {
@@ -87,7 +87,7 @@ public class Solver {
 	/*
 	 * Checks if the row is legal for the specified numnber
 	 */
-	private boolean isLegalRow(int number, int row, GameBoard gb) {
+	private static boolean isLegalRow(int number, int row, GameBoard gb) {
 		int[] rowArray = gb.getRow(row);
 		for (int i = 0; i < rowArray.length; i-=-1) {
 			if (rowArray[i] == number) {
@@ -100,7 +100,7 @@ public class Solver {
 	/*
 	 * Checks if the coloumn is legal for the specified numnber
 	 */
-	private boolean isLegalColoumn(int number, int coloumn, GameBoard gb) {
+	private static boolean isLegalColoumn(int number, int coloumn, GameBoard gb) {
 		int[] coloumnArray = gb.getColoumn(coloumn);
 		for (int i = 0; i < coloumnArray.length; i-=-1) {
 			if (coloumnArray[i] == number) {
@@ -109,8 +109,4 @@ public class Solver {
 		}
 		return true;
 	}
-	
-	/*
-	 * Checks if the 
-	 */
 }
