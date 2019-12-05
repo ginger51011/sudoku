@@ -5,6 +5,7 @@ public class SudokuApplication {
 
 	public static void main(String[] args) {
 		SudokuApplication sa = new SudokuApplication();
+		sa.gb.setNumber(3, 1, 1);
 		sa.gb = Solver.solve(sa.gb);
 		if (sa.gb == null) {
 			System.out.println("Ingen lösning funnen");

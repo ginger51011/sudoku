@@ -133,7 +133,7 @@ public class Solver {
 	 * Controls if the placement is legal
 	 */
 	private static boolean isLegal(int number, int row, int coloumn, GameBoard gb) {
-		if (isLegalRow(number, row, gb) || isLegalColoumn(number, coloumn, gb) || isLegalRegion(number, row, coloumn, gb)) {
+		if (isLegalRow(number, row, gb) && isLegalColoumn(number, coloumn, gb) && isLegalRegion(number, row, coloumn, gb)) {
 			return true;
 		} else {
 			return false;
