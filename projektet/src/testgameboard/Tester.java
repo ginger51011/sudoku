@@ -51,7 +51,7 @@ class Tester {
 		gb = testSetNumber();
 		for (int r = 0; r < 8; r++) {
 			for (int c = 0; c < 8; c++) {
-				if (gb.getValue(r, c) == null) {
+				if (gb.getValue(r, c) == -1) {
 					System.out.print(" ");
 				}
 				System.out.print(" " + gb.getValue(r, c));
