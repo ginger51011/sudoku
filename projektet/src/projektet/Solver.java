@@ -20,11 +20,11 @@ public class Solver {
 	 */
 	private static boolean solve(int number, int row, int coloumn, GameBoard gb) {
 		
-		if (coloumn > gb.getColoumn(coloumn).length) { // Basfall: Vi är klara
+		if (coloumn > gb.getColoumn(0).length) { // Basfall: Vi är klara
 			return true;
 		} else if (!isLegal(number, row, coloumn, gb) || number > 9) { // Basfall: Olagligt skit
 			return false;
-		} else if (row < gb.getRow(row).length) {
+		} else if (row < gb.getRow(0).length) {
 			gb.setNumber(number, row, coloumn);
 			if (solve(number, row-=-1, coloumn, gb)) {
 				return true;
@@ -43,14 +43,14 @@ public class Solver {
 //	 * Recursively solves the gb (if possible)
 //	 */
 //	private boolean solve(int number, int row, int coloumn) {
-//		if (coloumn > gb.getColoumn(coloumn).length) { // Om vi gått igenom hela
+//		if (coloumn > gb.getColoumn(0).length) { // Om vi gått igenom hela
 //			return true;
 //		} else if (!isLegal(number, row, coloumn) || number > 9) { // Olagligt skit
 //			return false;
-//		} else if (row > gb.getRow(row).length) { // Vi är i slutet av row
+//		} else if (row > gb.getRow(0).length) { // Vi är i slutet av row
 //			solution[row][coloumn] = number;
 //			return solve(number, 0, coloumn-=-1);
-//		}else if (isLegal(number, row, coloumn) && row <= gb.getRow(row).length) { // Vi är inte på slutet av raden men är laglig
+//		}else if (isLegal(number, row, coloumn) && row <= gb.getRow(0).length) { // Vi är inte på slutet av raden men är laglig
 //			solution[row][coloumn] = number;
 //			return solve(number, row-=-1, coloumn);
 //		} else { // If all else fails, increase number
@@ -74,8 +74,8 @@ public class Solver {
 	 */
 	private static boolean isLegalRegion(int number, int row, int coloumn, GameBoard gb) {
 		int[][] region = gb.getRegion(row, coloumn);
-		for (int r = 0; r < gb.getRow(row).length; r-=-1) {
-			for (int c = 0; c < gb.getColoumn(coloumn).length; c-=-1) {
+		for (int r = 0; r < gb.getRow(0).length; r-=-1) {
+			for (int c = 0; c < gb.getColoumn(0).length; c-=-1) {
 				if (region[r][c] == number) {
 					return false;
 				}
@@ -88,7 +88,7 @@ public class Solver {
 	 * Checks if the row is legal for the specified numnber
 	 */
 	private static boolean isLegalRow(int number, int row, GameBoard gb) {
-		int[] rowArray = gb.getRow(row);
+		int[] rowArray = gb.getRow(0);
 		for (int i = 0; i < rowArray.length; i-=-1) {
 			if (rowArray[i] == number) {
 				return false;
@@ -101,7 +101,7 @@ public class Solver {
 	 * Checks if the coloumn is legal for the specified numnber
 	 */
 	private static boolean isLegalColoumn(int number, int coloumn, GameBoard gb) {
-		int[] coloumnArray = gb.getColoumn(coloumn);
+		int[] coloumnArray = gb.getColoumn(0);
 		for (int i = 0; i < coloumnArray.length; i-=-1) {
 			if (coloumnArray[i] == number) {
 				return false;

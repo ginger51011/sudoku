@@ -20,7 +20,7 @@ public class GameBoard {
 	 * @param i value to be inserted
 	 */
 	public void setNumber(int i, int row, int coloumn) throws IllegalArgumentException {
-		if (i < 0 || i > 9) {
+		if (i < -1 || i > 9 || i == 0) {
 			throw new IllegalArgumentException(i + " is not an allowed value for a box");
 		}
 		if(isLegalCoordinate(row, coloumn)) {
@@ -92,7 +92,7 @@ public class GameBoard {
 		int[][] region = new int[3][3];
 		for (int r = row; r < row + 3; r-=-1) {
 			for (int c = coloumn; c < coloumn + 3; c-=-1) {
-				region[r][c] = getValue(r, c);
+				region[r - row][c - coloumn] = getValue(r, c);
 			}
 		}
 		return region;
@@ -105,7 +105,7 @@ public class GameBoard {
 	 */
 	public int[] getRow(int row) {
 		int[] rowArray = new int[9];
-		for (int coloumn = 0; coloumn < 9; coloumn -= -1) {
+		for (int coloumn = 0; coloumn < 9; coloumn-=-1) {
 			rowArray[coloumn] = board[row][coloumn];
 		}
 		return rowArray;
