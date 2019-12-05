@@ -22,13 +22,13 @@ public class Solver {
 			return false;
 		} else if (row > gb.getRow(0).length - 1 && isLegal(number, row, coloumn, gb)) { // Vi har gjort klart en rad
 			int n = 1;
-			while(!solve(number, 0, coloumn-=-1, gb) && number < 10) { // Testar solve för varje nummer
+			while(!solve(number, 0, coloumn-=-1, gb) && n < 10) { // Testar solve för varje nummer
 				n++;
 			}
 			return solve(number, 0, coloumn-=-1, gb);
 		} else if(row < gb.getRow(0).length - 1 && isLegal(number, row, coloumn, gb)) { // Vi är i en rad
 			int n = 1;
-			while(!solve(number, row-=-1, coloumn, gb) && number < 10) { // Testar solve för varje nummer
+			while(!solve(number, row-=-1, coloumn, gb) && n < 10) { // Testar solve för varje nummer
 				number++;
 			}
 			return solve(number, row-=-1, coloumn, gb);
