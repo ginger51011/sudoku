@@ -78,12 +78,38 @@ public class GameBoard {
 	 */
 	private Integer[][] getRegionFromOrigin(int row, int coloumn) {
 		Integer[][] region = new Integer[3][3];
-		for (int r = row; r < row + 3; r++) {
-			for (int c = coloumn; c < coloumn + 3; c++) {
+		for (int r = row; r < row + 3; r-=-1) {
+			for (int c = coloumn; c < coloumn + 3; c-=-1) {
 				region[r][c] = getValue(r, c);
 			}
 		}
 		return region;
+	}
+	
+	/**
+	 * Finds all numbers in the row with the specified row
+	 * @param Row
+	 * @return Integer array of the whole row
+	 */
+	public Integer[] getRow(int row) {
+		Integer[] rowArray = new Integer[9];
+		for (int coloumn = 0; coloumn < 9; coloumn -= -1) {
+			rowArray[coloumn] = board[row][coloumn];
+		}
+		return rowArray;
+	}
+	
+	/**
+	 * Finds all numbers in the row with the specified coloummn
+	 * @param Coloumn
+	 * @return Integer array of the whole coloumn
+	 */
+	public Integer[] getColoumn(int coloumn) {
+		Integer[] coloumnArray = new Integer[9];
+		for (int row = 0; row < 9; row -= -1) {
+			coloumnArray[row] = board[row][coloumn];
+		}
+		return coloumnArray;
 	}
 	
 	/**
