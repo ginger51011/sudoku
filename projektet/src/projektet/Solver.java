@@ -15,27 +15,76 @@ public class Solver {
 		}
 	}
 	
-	private static boolean solve (int number, int row, int coloumn, GameBoard gb) {
-		if (coloumn > gb.getColoumn(0).length - 1) { // Vi är klara
+	private static boolean solve(int number, int row, int coloumn, GameBoard gb) {
+		if (coloumn == gb.getColoumn(0).length) { // Om klara
 			return true;
-		} else if (number > 9) { // Vi försöker gå för långt
-			return false;
-		} else if (row > gb.getRow(0).length - 1 && isLegal(number, row, coloumn, gb)) { // Vi har gjort klart en rad
-			int n = 1;
-			while(!solve(number, 0, coloumn-=-1, gb) && n < 10) { // Testar solve för varje nummer
-				n++;
+		} else if (row > gb.getRow(0).length - 1) { // Om vi gått förbi slutet av rows
+			return solve(number, 0, coloumn + 1, gb);
+		} else if (gb.getValue(row, coloumn) != -1) { // Rutan är redan ifylld
+			return solve(number, row + 1, coloumn, gb);
+		} else if (isLegal(number, row, coloumn, gb)){ 
+			gb.setNumber(number, row, coloumn); // Sätt in siffran
+			for (int n = 1; n < 10; n-=-1) { // Testar sätta in alla möjliga värden i nästa
+				if (solve(n, row + 1, coloumn, gb)) { // Om det funkar hela vägen för ett n
+					return true;
+				}
 			}
-			return solve(number, 0, coloumn-=-1, gb);
-		} else if(row < gb.getRow(0).length - 1 && isLegal(number, row, coloumn, gb)) { // Vi är i en rad
-			int n = 1;
-			while(!solve(number, row-=-1, coloumn, gb) && n < 10) { // Testar solve för varje nummer
-				number++;
-			}
-			return solve(number, row-=-1, coloumn, gb);
-		} else { // Vi har något !isLegal()
+			gb.removeNumber(row, coloumn); // Annars e det ju fail
+			return false; 
+		} else {
 			return false;
 		}
 	}
+	
+//	private static boolean solve(int number, int row, int coloumn, GameBoard gb) {
+//		if (coloumn > gb.getColoumn(0).length - 1) { // Vi är klara
+//			return true;
+//		} else if (number > 9) { // Vi försöker gå för långt
+//			return false;
+//		} else if (row > gb.getRow(0).length - 1) { // Vi är utanför row-gränsen
+//			return solve(number, 0, coloumn + 1, gb);
+//		} else if (gb.getValue(row, coloumn) != -1) { // Redan ifylld ruta
+//			return solve(number, row + 1, coloumn, gb);
+//		} else if (isLegal(number, row, coloumn, gb)) { // Vi är rätt med row och det är lagligt
+//			gb.setNumber(number, row, coloumn); // Vi ändrar där vi är
+//			
+//			int n = 1; // Vad vi ska skicka vidare
+//			if (!solve(n, row + 1, coloumn, gb)) {
+//				if (n < 10) { 
+//					return solve(n-=-1, row + 1, coloumn, gb); 
+//					}
+//				else {
+//					gb.setNumber(-1, row, coloumn); // Återställer där man är
+//					return solve(number-=-1, row, coloumn, gb); // Försöker med ett nytt nummer på nuvarande
+//				}
+//			} else return false;
+//		} else { // Dvs. !isLegal()
+//			return false;
+//		}
+//	}
+	
+//	private static boolean solve (int number, int row, int coloumn, GameBoard gb) {
+//		if (coloumn > gb.getColoumn(0).length - 1) { // Vi är klara
+//			return true;
+//		} else if (number > 9) { // Vi försöker gå för långt
+//			return false;
+//		} else if (row > gb.getRow(0).length - 1 && isLegal(number, row, coloumn, gb)) { // Vi har gjort klart en rad
+//			int n = 1;
+//			while(!solve(number, 0, coloumn-=-1, gb) && n < 10) { // Testar solve för varje nummer
+//				n++;
+//			}
+//			return solve(number, 0, coloumn-=-1, gb);
+//		} else if(row < gb.getRow(0).length - 1 && isLegal(number, row, coloumn, gb)) { // Vi är i en rad
+//			int n = 1;
+//			while(!solve(number, row-=-1, coloumn, gb) && n < 10) { // Testar solve för varje nummer
+//				n++;
+//			}
+//			return solve(number, row-=-1, coloumn, gb);
+//		} else { // Vi har något !isLegal()
+//			gb.setNumber(-1, row, coloumn);
+//			return solve
+//		}
+//	}
 	
 //	/*
 //	 * Recursively solves gb
@@ -110,7 +159,7 @@ public class Solver {
 	 * Checks if the row is legal for the specified numnber
 	 */
 	private static boolean isLegalRow(int number, int row, GameBoard gb) {
-		int[] rowArray = gb.getRow(0);
+		int[] rowArray = gb.getRow(row);
 		for (int i = 0; i < rowArray.length; i-=-1) {
 			if (rowArray[i] == number) {
 				return false;
@@ -123,7 +172,7 @@ public class Solver {
 	 * Checks if the coloumn is legal for the specified numnber
 	 */
 	private static boolean isLegalColoumn(int number, int coloumn, GameBoard gb) {
-		int[] coloumnArray = gb.getColoumn(0);
+		int[] coloumnArray = gb.getColoumn(coloumn);
 		for (int i = 0; i < coloumnArray.length; i-=-1) {
 			if (coloumnArray[i] == number) {
 				return false;
