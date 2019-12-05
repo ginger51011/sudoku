@@ -16,7 +16,7 @@ public class Solver {
 	}
 	
 	private static boolean solve(int number, int row, int coloumn, GameBoard gb) {
-		if (coloumn == gb.getColoumn(0).length) { // Om klara
+		if (coloumn > gb.getColoumn(0).length - 1) { // Om klara
 			return true;
 		} else if (row > gb.getRow(0).length - 1) { // Om vi gått förbi slutet av rows
 			return solve(number, 0, coloumn + 1, gb);

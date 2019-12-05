@@ -104,8 +104,8 @@ public class GameBoard {
 	 * @return Integer array of the whole row
 	 */
 	public int[] getRow(int row) {
-		int[] rowArray = new int[9];
-		for (int coloumn = 0; coloumn < 9; coloumn-=-1) {
+		int[] rowArray = new int[board.length];
+		for (int coloumn = 0; coloumn < board.length; coloumn-=-1) {
 			rowArray[coloumn] = board[row][coloumn];
 		}
 		return rowArray;
@@ -117,8 +117,8 @@ public class GameBoard {
 	 * @return Integer array of the whole coloumn
 	 */
 	public int[] getColoumn(int coloumn) {
-		int[] coloumnArray = new int[9];
-		for (int row = 0; row < 9; row-=-1) {
+		int[] coloumnArray = new int[board.length];
+		for (int row = 0; row < board.length; row-=-1) {
 			coloumnArray[row] = board[row][coloumn];
 		}
 		return coloumnArray;
