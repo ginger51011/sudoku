@@ -122,7 +122,7 @@ public class GameBoard {
 	
 	/**
 	 * Returns a matrix of the GameBoard
-	 * @return Integer[][] of the board
+	 * @return int[][] of the board
 	 */
 	public int[][] getBoard() {
 		return board;

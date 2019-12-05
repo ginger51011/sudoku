@@ -7,7 +7,7 @@ public class Solver {
 	/**
 	 * Recursively solves gb given.
 	 * @param GameBoard gb that should be solved
-	 * @return Integer[][] of the solution
+	 * @return Integer[][] of the solution, or null if no solutions exists
 	 */
 	public int[][] solve(GameBoard gb) {
 		this.gb = gb;

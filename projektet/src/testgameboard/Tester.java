@@ -7,18 +7,22 @@ import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
 import projektet.GameBoard;
+import projektet.Solver;
 
 class Tester {
 	GameBoard gb;
+	Solver s;
 	
 	@Before
 	public void setUp() {
 		gb = new GameBoard();
+		s = new Solver();
 	}
 	
 	@After
 	public void tearDown() {
 		gb = null;
+		s = null;
 	}
 	
 	/*
@@ -44,11 +48,29 @@ class Tester {
 	}
 	
 	/*
+	 * Tests solve() on empty GameBoard	
+	 */
+	@Test
+	public void testEmptySolve() {
+		try {
+			s.solve(gb);
+		} catch (Exception e) {
+			fail("Raised exception: " + e);
+		}
+	}
+	
+	/*
+	 * Tests solve()
+	 */
+	
+	/*
 	 * Prints the GameBoard
 	 */
 	@Test
 	public void testPrintBoard() {
-		gb = testSetNumber();
+		gb.setNumber(5, 1, 1);
+		gb.setNumber(3, 6, 5);
+		gb.setNumber(8, 1, 2);
 		for (int r = 0; r < 8; r++) {
 			for (int c = 0; c < 8; c++) {
 				if (gb.getValue(r, c) == -1) {
