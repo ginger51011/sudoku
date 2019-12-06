@@ -20,7 +20,7 @@ public class GameBoard {
 	 * @param i value to be inserted
 	 */
 	public void setNumber(int i, int row, int coloumn) throws IllegalArgumentException {
-		if (i < 0 || i > 9) {
+		if (i < -1 || i > 9 || i == 0) {
 			throw new IllegalArgumentException(i + " is not an allowed value for a box");
 		}
 		if(isLegalCoordinate(row, coloumn)) {
@@ -31,7 +31,7 @@ public class GameBoard {
 	/**
 	 * Sets the value of (row, coloumn) to -1 (empty).
 	 */
-	public void removeNumber(int row, int coloumn) {
+	public void removeNumber(int row, int coloumn) throws IllegalArgumentException {
 		if(isLegalCoordinate(row, coloumn)) {
 			board[row][coloumn] = -1;
 		}
@@ -41,7 +41,7 @@ public class GameBoard {
 	 * Returns the value of (row, coloumn)
 	 * @return The value, or -1 if empty
 	 */
-	public int getValue(int row, int coloumn) { // Om den ej returnerar Integer kan den ej vara null
+	public int getValue(int row, int coloumn) throws IllegalArgumentException { // Om den ej returnerar Integer kan den ej vara null
 		if (isLegalCoordinate(row, coloumn)) {
 			return board[row][coloumn];
 		}
@@ -52,7 +52,7 @@ public class GameBoard {
 	 * Uses private help method getRegionFromOrigin().
 	 * @return The region of the specified coordinate as a 3x3 Integer matrix
 	 */
-	public int[][] getRegion(int row, int coloumn) {
+	public int[][] getRegion(int row, int coloumn) throws IllegalArgumentException {
 		if (isLegalCoordinate(row, coloumn)) {
 			// Hittar var sjutton koordinaten finns. 
 			// Då vet vi var denna region har sitt övre vänstra hörn; Trycker in det i getRegionFromOrigin()
@@ -92,7 +92,7 @@ public class GameBoard {
 		int[][] region = new int[3][3];
 		for (int r = row; r < row + 3; r-=-1) {
 			for (int c = coloumn; c < coloumn + 3; c-=-1) {
-				region[r][c] = getValue(r, c);
+				region[r - row][c - coloumn] = getValue(r, c);
 			}
 		}
 		return region;
@@ -104,8 +104,8 @@ public class GameBoard {
 	 * @return Integer array of the whole row
 	 */
 	public int[] getRow(int row) {
-		int[] rowArray = new int[9];
-		for (int coloumn = 0; coloumn < 9; coloumn -= -1) {
+		int[] rowArray = new int[board.length];
+		for (int coloumn = 0; coloumn < board.length; coloumn-=-1) {
 			rowArray[coloumn] = board[row][coloumn];
 		}
 		return rowArray;
@@ -117,8 +117,8 @@ public class GameBoard {
 	 * @return Integer array of the whole coloumn
 	 */
 	public int[] getColoumn(int coloumn) {
-		int[] coloumnArray = new int[9];
-		for (int row = 0; row < 9; row -= -1) {
+		int[] coloumnArray = new int[board.length];
+		for (int row = 0; row < board.length; row-=-1) {
 			coloumnArray[row] = board[row][coloumn];
 		}
 		return coloumnArray;
@@ -132,7 +132,7 @@ public class GameBoard {
 		return board;
 	}
 	
-	/**
+	/*
 	 * Checks if (row, coloumn) is part of the board
 	 * @return true if this is the case.
 	 */

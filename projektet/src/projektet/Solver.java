@@ -15,54 +15,32 @@ public class Solver {
 		}
 	}
 	
-	/*
-	 * Recursively solves gb
-	 */
 	private static boolean solve(int number, int row, int coloumn, GameBoard gb) {
-		
-		if (coloumn > gb.getColoumn(coloumn).length) { // Basfall: Vi är klara
+		if (coloumn > gb.getColoumn(0).length - 1) { // Om klara
 			return true;
-		} else if (!isLegal(number, row, coloumn, gb) || number > 9) { // Basfall: Olagligt skit
-			return false;
-		} else if (row < gb.getRow(row).length) {
-			gb.setNumber(number, row, coloumn);
-			if (solve(number, row-=-1, coloumn, gb)) {
-				return true;
-			} else {
-				gb.setNumber(-1, row, coloumn);
-				return solve(number-=-1, row, coloumn, gb);
+		} else if (row > gb.getRow(0).length - 1) { // Om vi gått förbi slutet av rows
+			return solve(number, 0, coloumn + 1, gb);
+		} else if (gb.getValue(row, coloumn) != -1) { // Rutan är redan ifylld
+			return solve(number, row + 1, coloumn, gb);
+		} else if (isLegal(number, row, coloumn, gb)){ 
+			gb.setNumber(number, row, coloumn); // Sätt in siffran
+			for (int n = 1; n < 10; n-=-1) { // Testar sätta in alla möjliga värden i nästa
+				if (solve(n, row + 1, coloumn, gb)) { // Om det funkar hela vägen för ett n
+					return true;
+				}
 			}
-		} else { // Om vi är utanför
-			return solve(number, row, coloumn-=-1, gb);
+			gb.removeNumber(row, coloumn); // Annars e det ju fail
+			return false; 
+		} else {
+			return false;
 		}
 	}
-	
-	
-	
-//	/*
-//	 * Recursively solves the gb (if possible)
-//	 */
-//	private boolean solve(int number, int row, int coloumn) {
-//		if (coloumn > gb.getColoumn(coloumn).length) { // Om vi gått igenom hela
-//			return true;
-//		} else if (!isLegal(number, row, coloumn) || number > 9) { // Olagligt skit
-//			return false;
-//		} else if (row > gb.getRow(row).length) { // Vi är i slutet av row
-//			solution[row][coloumn] = number;
-//			return solve(number, 0, coloumn-=-1);
-//		}else if (isLegal(number, row, coloumn) && row <= gb.getRow(row).length) { // Vi är inte på slutet av raden men är laglig
-//			solution[row][coloumn] = number;
-//			return solve(number, row-=-1, coloumn);
-//		} else { // If all else fails, increase number
-//			return solve(number-=-1, row, coloumn);
-//		}
-//	}
 	
 	/*
 	 * Controls if the placement is legal
 	 */
 	private static boolean isLegal(int number, int row, int coloumn, GameBoard gb) {
-		if (isLegalRow(number, row, gb) || isLegalColoumn(number, coloumn, gb) || isLegalRegion(number, row, coloumn, gb)) {
+		if (isLegalRow(number, row, gb) && isLegalColoumn(number, coloumn, gb) && isLegalRegion(number, row, coloumn, gb)) {
 			return true;
 		} else {
 			return false;
@@ -74,8 +52,8 @@ public class Solver {
 	 */
 	private static boolean isLegalRegion(int number, int row, int coloumn, GameBoard gb) {
 		int[][] region = gb.getRegion(row, coloumn);
-		for (int r = 0; r < gb.getRow(row).length; r-=-1) {
-			for (int c = 0; c < gb.getColoumn(coloumn).length; c-=-1) {
+		for (int r = 0; r < 3; r-=-1) {
+			for (int c = 0; c < 3; c-=-1) {
 				if (region[r][c] == number) {
 					return false;
 				}
