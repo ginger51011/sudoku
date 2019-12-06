@@ -10,24 +10,16 @@ import org.junit.Test;
 import projektet.GameBoard;
 import projektet.Solver;
 
-class Tester {
+public class Tester {
 	GameBoard gb;
 	
-	@Before
-	public void setUp() {
-		gb = new GameBoard();
-	}
-	
-	@After
-	public void tearDown() {
-		gb = null;
-	}
 	
 	/*
 	 * Tests setNumber()
 	 */
 	@Test
-	public final GameBoard testSetNumber() {
+	public final void testSetNumber() {
+		gb = new GameBoard();
 		gb.setNumber(5, 1, 1);
 		gb.setNumber(3, 6, 5);
 		try {
@@ -42,19 +34,24 @@ class Tester {
 		} catch (ArrayIndexOutOfBoundsException e) {
 			// Lyckat test
 		}
-		return gb;
+		gb = null;
 	}
 	
 	/*
 	 * Tests solve() on empty GameBoard	
 	 */
 	@Test
-	public void testEmptySolve() {
+	public void testNonSolveable() {
+		gb = new GameBoard();
+		gb.setNumber(1, 0, 0);
+		gb.setNumber(1, 1, 1);
+		
 		try {
 			assertNull(Solver.solve(gb));
 		} catch (Exception e) {
 			fail("Raised exception: " + e);
 		}
+		gb = null;
 	}
 	
 	/*
@@ -66,6 +63,7 @@ class Tester {
 	 */
 	@Test
 	public void testPrintBoard() {
+		gb = new GameBoard();
 		gb.setNumber(5, 1, 1);
 		gb.setNumber(3, 6, 5);
 		gb.setNumber(8, 1, 2);
@@ -80,6 +78,7 @@ class Tester {
 				}
 			}
 		}
+		gb = null;
 	}
 
 }

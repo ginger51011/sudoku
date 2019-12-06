@@ -83,9 +83,10 @@ public class GraphicInterface extends Application{
         	}
         }
         
+        /*Lägger till textFields (numberBoxes) i alla regions*/
         for(int i=0; i<9; i++) {
         	for(int n=0; n<9; n++) {
-        		numberBoxes[i][n]=new TextField(i+" "+n);
+        		numberBoxes[i][n]=new TextField();
         		int regionRow=i/3;
         		int regionCol=n/3;
         		int regionRowMod=i%3;
@@ -100,33 +101,53 @@ public class GraphicInterface extends Application{
         Scene scene = new Scene(border, 250, 310);
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.setResizable(false);
         
-		solve.setOnAction(event -> {
-			if(scanGrid()) {
-				gb = new GameBoard(sendBoxes);
-				int result[][] = Solver.solve(gb).getBoard();
-				
-				if(result==null) {
-					alert.setTitle("Warning Dialog");
-        			alert.setHeaderText("No solution could be found");
-        			alert.showAndWait();
-				}
-				else {
-					for(int i=0; i<9; i++) {
-			        	for(int n=0; n<9; n++) {
-			        		numberBoxes[i][n].setText(result[i][n]+"");
-			        	}
-			        }
-				}
-			}
-		});
+        
+        
+        solve.setOnAction(event -> {
+        	
+        	//Checks if users input can be converted to a int 2D array
+            if(scanGrid()) {
+            	
+                gb = new GameBoard(sendBoxes);
+                int result[][]=null;
+                GameBoard gbSolve=Solver.solve(gb);
+                
+                try {
+                	//Tries to get the solved board
+                	result = gbSolve.getBoard();
+                }
+                catch(NullPointerException e) {
+                	//If NullPointerException solution could not be found
+                    alert.setTitle("Warning Dialog");
+                    alert.setHeaderText("No solution could be found");
+                    alert.showAndWait();
+                    return;
+                }
+
+               
+                    for(int i=0; i<9; i++) {
+                        for(int n=0; n<9; n++) {
+                            numberBoxes[i][n].setText(result[i][n]+"");
+                        }
+                    }
+                
+            }
+        });
+		
 		clear.setOnAction(event -> {
 			clearGrid();
 		});
 		
 	}
 	
+	/*
+	 * Private help method
+	 * Clears grid feom users input
+	 */
 	private void clearGrid() {
+	//Clears grid from users input
 		for(int i=0; i<9; i++) {
         	for(int n=0; n<9; n++) {
         		numberBoxes[i][n].setText(null);
@@ -134,6 +155,11 @@ public class GraphicInterface extends Application{
         }
 	}
 	
+	/*
+	 * Private help method
+	 * Checks if user input can be converted to a 2D-array of type int
+	 * @return true if this is the case.
+	 */
 	private boolean scanGrid() {
 		for(int i=0; i<9; i++) {
         	for(int n=0; n<9; n++) {
@@ -142,12 +168,15 @@ public class GraphicInterface extends Application{
         		}
         		else {
             		try {
+            			if(sendBoxes[i][n]>9||sendBoxes[i][n]<1) {
+            				throw new NumberFormatException();
+            			}
             			sendBoxes[i][n]=Integer.parseInt(numberBoxes[i][n].getText());
             		}
             		catch(NumberFormatException e) {
             			System.out.println("Exception");
             			alert.setTitle("Warning Dialog");
-            			alert.setHeaderText("You can only have integers as input");
+            			alert.setHeaderText("You can only have integers between 1 and 9 as input");
 
             			alert.showAndWait();
             			return false;
