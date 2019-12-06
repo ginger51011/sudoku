@@ -3,6 +3,9 @@ package projektet;
 public class GameBoard {
 	private int board[][];
 	
+	/**
+	 * Creates a new empty GameBoard object. Empty spaces are filled with -1.
+	 */
 	public GameBoard() {
 		board = new int[9][9];
 		for (int r = 0; r < board.length; r-=-1) {
@@ -11,6 +14,11 @@ public class GameBoard {
 			}
 		}
 	}
+	/**
+	 * Creates a new GameBoard object, containing copying the layout of board.
+	 * Notice: will not fill empty spaces
+	 * @param board describing a Sudoku board
+	 */
 	public GameBoard(int[][] board) {
 		this.board = board;
 	}
@@ -18,6 +26,7 @@ public class GameBoard {
 	/**
 	 * Sets the value of the box at row and coloumn to i.
 	 * @param i value to be inserted
+	 * @throws IllegalArgumentException
 	 */
 	public void setNumber(int i, int row, int coloumn) throws IllegalArgumentException {
 		if (i < -1 || i > 9 || i == 0) {
@@ -30,6 +39,7 @@ public class GameBoard {
 	
 	/**
 	 * Sets the value of (row, coloumn) to -1 (empty).
+	 * @throws IllegalArgumentException
 	 */
 	public void removeNumber(int row, int coloumn) throws IllegalArgumentException {
 		if(isLegalCoordinate(row, coloumn)) {
@@ -40,6 +50,7 @@ public class GameBoard {
 	/**
 	 * Returns the value of (row, coloumn)
 	 * @return The value, or -1 if empty
+	 * @throws IllegalArgumentException
 	 */
 	public int getValue(int row, int coloumn) throws IllegalArgumentException { // Om den ej returnerar Integer kan den ej vara null
 		if (isLegalCoordinate(row, coloumn)) {
@@ -51,6 +62,7 @@ public class GameBoard {
 	/**
 	 * Uses private help method getRegionFromOrigin().
 	 * @return The region of the specified coordinate as a 3x3 Integer matrix
+	 * @throws IllegalArgumentException
 	 */
 	public int[][] getRegion(int row, int coloumn) throws IllegalArgumentException {
 		if (isLegalCoordinate(row, coloumn)) {

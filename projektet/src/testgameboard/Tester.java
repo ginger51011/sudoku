@@ -1,28 +1,26 @@
 package testgameboard;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import projektet.GameBoard;
 import projektet.Solver;
 
 class Tester {
 	GameBoard gb;
-	Solver s;
 	
 	@Before
 	public void setUp() {
 		gb = new GameBoard();
-		s = new Solver();
 	}
 	
 	@After
 	public void tearDown() {
 		gb = null;
-		s = null;
 	}
 	
 	/*
@@ -53,7 +51,7 @@ class Tester {
 	@Test
 	public void testEmptySolve() {
 		try {
-			s.solve(gb);
+			assertNull(Solver.solve(gb));
 		} catch (Exception e) {
 			fail("Raised exception: " + e);
 		}
