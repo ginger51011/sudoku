@@ -39,6 +39,7 @@ public class Solver {
 		} 
 		// Vi testar alla värden på nästa om det är lagligt
 		else if (isLegal(number, row, coloumn, gb)){ 
+
 			gb.setNumber(number, row, coloumn); // Sätt in siffran
 			for (int n = 1; n < 10; n-=-1) { // Testar sätta in alla möjliga värden i nästa
 				if (solve(n, row + 1, coloumn, gb)) { // Om det funkar hela vägen för ett n
