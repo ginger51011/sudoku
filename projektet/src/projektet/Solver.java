@@ -20,10 +20,10 @@ public class Solver {
 		if (coloumn > gb.getColoumn(0).length - 1) {
 			return true;
 		} 
-		// Vi försöker gå för långt
+		// Försöker öka nummer för mkt
 		else if (number > 9) {
 			return false;
-		} 
+		}
 		// Om vi gått förbi slutet av rows
 		else if (row > gb.getRow(0).length - 1) { 
 			return solve(number, 0, coloumn + 1, gb);
@@ -39,7 +39,6 @@ public class Solver {
 		} 
 		// Vi testar alla värden på nästa om det är lagligt
 		else if (isLegal(number, row, coloumn, gb)){ 
-
 			gb.setNumber(number, row, coloumn); // Sätt in siffran
 			for (int n = 1; n < 10; n-=-1) { // Testar sätta in alla möjliga värden i nästa
 				if (solve(n, row + 1, coloumn, gb)) { // Om det funkar hela vägen för ett n
@@ -51,7 +50,7 @@ public class Solver {
 		} 
 		// Vi har försökt allt
 		else {
-			return false; // Man testar inkrementera på stället istället; Löser om förstaplatsen blockeras
+			return solve(number-=-1, row, coloumn, gb); // Man testar inkrementera på stället istället; Löser om förstaplatsen blockeras
 		}
 	}
 	
