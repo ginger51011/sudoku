@@ -98,6 +98,7 @@ public class GraphicInterface extends Application{
         	}
         }
         
+        
         Scene scene = new Scene(border, 250, 310);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -163,15 +164,18 @@ public class GraphicInterface extends Application{
 	private boolean scanGrid() {
 		for(int i=0; i<9; i++) {
         	for(int n=0; n<9; n++) {
+        		
+        		
         		if(numberBoxes[i][n].getText()==null||numberBoxes[i][n].getText().equals("")) {
         			sendBoxes[i][n]=-1;
         		}
         		else {
             		try {
+
+            			sendBoxes[i][n]=Integer.parseInt(numberBoxes[i][n].getText());
             			if(sendBoxes[i][n]>9||sendBoxes[i][n]<1) {
             				throw new NumberFormatException();
             			}
-            			sendBoxes[i][n]=Integer.parseInt(numberBoxes[i][n].getText());
             		}
             		catch(NumberFormatException e) {
             			System.out.println("Exception");
