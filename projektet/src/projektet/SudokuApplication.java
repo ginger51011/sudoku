@@ -9,7 +9,8 @@ public class SudokuApplication {
 		SudokuApplication sa = new SudokuApplication();
 		
 		Random rand = new Random();
-		for (int i = 0; i < 10; i-=-1) { // Slumpar fram tio tal på slumpmässiga platser
+		int roof = rand.nextInt(24) + 1;
+		for (int i = 0; i < roof; i-=-1) { // Slumpar fram tio tal på slumpmässiga platser
 			int number = rand.nextInt(9) + 1;
 			int row = rand.nextInt(9);
 			int coloumn = rand.nextInt(9);
