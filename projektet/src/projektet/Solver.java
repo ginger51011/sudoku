@@ -16,13 +16,30 @@ public class Solver {
 	}
 	
 	private static boolean solve(int number, int row, int coloumn, GameBoard gb) {
-		if (coloumn > gb.getColoumn(0).length - 1) { // Om klara
+		// Om klara
+		if (coloumn > gb.getColoumn(0).length - 1) {
 			return true;
-		} else if (row > gb.getRow(0).length - 1) { // Om vi gått förbi slutet av rows
+		} 
+		// Vi försöker gå för långt
+		else if (number > 9) {
+			return false;
+		} 
+		// Om vi gått förbi slutet av rows
+		else if (row > gb.getRow(0).length - 1) { 
 			return solve(number, 0, coloumn + 1, gb);
-		} else if (gb.getValue(row, coloumn) != -1) { // Rutan är redan ifylld
-			return solve(number, row + 1, coloumn, gb);
-		} else if (isLegal(number, row, coloumn, gb)){ 
+		} 
+		// Rutan är redan ifylld. Loopen förhindrar att vi bara studsar tillbaka
+		else if (gb.getValue(row, coloumn) != -1) {  
+			for (int n = 1; n < 10; n-=-1) { // Testar sätta in alla möjliga värden i nästa
+				if (solve(n, row + 1, coloumn, gb)) { // Om det funkar hela vägen för ett n
+					return true;
+				}
+			}
+			return false; 
+		} 
+		// Vi testar alla värden på nästa om det är lagligt
+		else if (isLegal(number, row, coloumn, gb)){ 
+
 			gb.setNumber(number, row, coloumn); // Sätt in siffran
 			for (int n = 1; n < 10; n-=-1) { // Testar sätta in alla möjliga värden i nästa
 				if (solve(n, row + 1, coloumn, gb)) { // Om det funkar hela vägen för ett n
@@ -31,8 +48,10 @@ public class Solver {
 			}
 			gb.removeNumber(row, coloumn); // Annars e det ju fail
 			return false; 
-		} else {
-			return false;
+		} 
+		// Vi har försökt allt
+		else {
+			return false; // Man testar inkrementera på stället istället; Löser om förstaplatsen blockeras
 		}
 	}
 	
