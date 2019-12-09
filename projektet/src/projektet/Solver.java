@@ -20,7 +20,7 @@ public class Solver {
 			return true;
 		} else if (row > gb.getRow(0).length - 1) { // Om vi gått förbi slutet av rows
 			return solve(number, 0, coloumn + 1, gb);
-		} else if (gb.getValue(row, coloumn) != -1) { // Rutan är redan ifylld
+		} else if (gb.getValue(row, coloumn) != -1 && isLegal(number, row, coloumn, gb)) { // Rutan är redan ifylld OCH ifyllningen är laglig
 			return solve(number, row + 1, coloumn, gb);
 		} else if (isLegal(number, row, coloumn, gb)){ 
 			gb.setNumber(number, row, coloumn); // Sätt in siffran
