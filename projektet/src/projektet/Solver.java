@@ -3,7 +3,7 @@ package projektet;
 public class Solver {
 
 	/**
-	 * Recursively solves gb given.
+	 * Tries to solve GameBoard given.
 	 * @param GameBoard that should be solved
 	 * @return GameBoard of the solution, or null if no solutions exists
 	 */
@@ -48,7 +48,7 @@ public class Solver {
 			gb.removeNumber(row, coloumn); // Annars e det ju fail
 			return false; 
 		} 
-		// Vi har försökt allt
+		// Vi har försökt allt, men vi vill fortsätta kolla där vi är
 		else {
 			return solve(number-=-1, row, coloumn, gb); // Man testar inkrementera på stället istället; Löser om förstaplatsen blockeras
 		}
