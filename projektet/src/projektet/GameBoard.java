@@ -141,7 +141,7 @@ public class GameBoard {
 	 * @return int[][] of the board
 	 */
 	public int[][] getBoard() {
-		return board;
+		return board.clone();
 	}
 	
 	/*
