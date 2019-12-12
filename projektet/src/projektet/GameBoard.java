@@ -60,7 +60,7 @@ public class GameBoard {
 	}
 	
 	/**
-	 * Uses private help method getRegionFromOrigin().
+	 * Returns the region in which (row, coloumn) is located
 	 * @return The region of the specified coordinate as a 3x3 Integer matrix
 	 * @throws IllegalArgumentException
 	 */
@@ -145,8 +145,8 @@ public class GameBoard {
 	}
 	
 	/*
-	 * Checks if (row, coloumn) is part of the board
-	 * @return true if this is the case.
+	 * Checks if (row, coloumn) is part of the board,
+	 * returns true if this is the case
 	 */
 	private boolean isLegalCoordinate(int row, int coloumn) throws ArrayIndexOutOfBoundsException {
 		if (row < 0 || row > 8 || coloumn < 0 || coloumn > 8) {

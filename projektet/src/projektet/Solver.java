@@ -3,12 +3,12 @@ package projektet;
 public class Solver {
 
 	/**
-	 * Tries to solve GameBoard given.
+	 * Tries to solve GameBoard given
 	 * @param GameBoard that should be solved
 	 * @return GameBoard of the solution, or null if no solutions exists
 	 */
 	public static GameBoard solve(GameBoard gb) {
-		if (solve(1, 0, 0, gb)) {
+		if (checkIfInputIsLegal(gb) && solve(1, 0, 0, gb)) {
 			return gb;
 		} else {
 			return null;
@@ -46,13 +46,32 @@ public class Solver {
 				}
 			}
 			gb.removeNumber(row, coloumn); // Annars e det ju fail
-			return false; 
+			return false;
 		} 
 		// Vi har försökt allt, men vi vill fortsätta kolla där vi är
 		else {
 			return solve(number-=-1, row, coloumn, gb); // Man testar inkrementera på stället istället; Löser om förstaplatsen blockeras
 		}
 	}
+	
+	private static boolean checkIfInputIsLegal(GameBoard gb) {
+		int number;
+		for(int i=0; i<9; i++) {
+			for(int n=0; n<9; n++) {
+				number=gb.getValue(i, n);
+				if(number != -1 ) {
+					gb.removeNumber(i, n);
+					if(isLegal(number, i, n, gb)==false) {
+						return false;
+					}
+					gb.setNumber(number, i, n);
+				}
+			}
+		}
+		return true;
+	}
+	
+	
 	
 	/*
 	 * Controls if the placement is legal
