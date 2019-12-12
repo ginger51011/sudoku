@@ -8,51 +8,80 @@ public class Solver {
 	 * @return GameBoard of the solution, or null if no solutions exists
 	 */
 	public static GameBoard solve(GameBoard gb) {
-		if (checkIfInputIsLegal(gb) && solve(1, 0, 0, gb)) {
+		if (checkIfInputIsLegal(gb) && solve(0, 0, gb)) {
 			return gb;
 		} else {
 			return null;
 		}
 	}
 	
-	private static boolean solve(int number, int row, int coloumn, GameBoard gb) {
-		// Om klara
-		if (coloumn > gb.getColoumn(0).length - 1) {
+	private static boolean solve(int row, int coloumn, GameBoard gb) {
+		// Vi är klara
+		if (coloumn > 8) {
 			return true;
-		} 
-		// Försöker öka nummer för mkt
-		else if (number > 9) {
-			return false;
 		}
-		// Om vi gått förbi slutet av rows
-		else if (row > gb.getRow(0).length - 1) { 
-			return solve(number, 0, coloumn + 1, gb);
+		// Vi är utanför brädet och ska hoppa upp
+		else if (row > 8) {
+			return solve(0, coloumn + 1, gb);
+		}
+		// Vi har en redan ifylld ruta
+		else if (gb.getValue(row, coloumn) != -1) {
+			return solve(row + 1, coloumn, gb);
 		} 
-		// Rutan är redan ifylld. Loopen förhindrar att vi bara studsar tillbaka
-		else if (gb.getValue(row, coloumn) != -1) {  
-			for (int n = 1; n < 10; n-=-1) { // Testar sätta in alla möjliga värden i nästa
-				if (solve(n, row + 1, coloumn, gb)) { // Om det funkar hela vägen för ett n
-					return true;
-				}
-			}
-			return false; 
-		} 
-		// Vi testar alla värden på nästa om det är lagligt
-		else if (isLegal(number, row, coloumn, gb)){ 
-			gb.setNumber(number, row, coloumn); // Sätt in siffran
-			for (int n = 1; n < 10; n-=-1) { // Testar sätta in alla möjliga värden i nästa
-				if (solve(n, row + 1, coloumn, gb)) { // Om det funkar hela vägen för ett n
-					return true;
-				}
-			}
-			gb.removeNumber(row, coloumn); // Annars e det ju fail
-			return false;
-		} 
-		// Vi har försökt allt, men vi vill fortsätta kolla där vi är
+		// Vi testar att lösa
 		else {
-			return solve(number-=-1, row, coloumn, gb); // Man testar inkrementera på stället istället; Löser om förstaplatsen blockeras
+			for (int i = 1; i < 10; i++) {
+				if (isLegal(i, row, coloumn, gb)) {
+					gb.setNumber(i, row, coloumn);
+					if (solve(row, coloumn, gb)) {
+						return true;
+					} else {
+						gb.removeNumber(row, coloumn);
+					}
+				}
+			}
+			return false;
 		}
 	}
+	
+//	private static boolean solve(int number, int row, int coloumn, GameBoard gb) {
+//		// Om klara
+//		if (coloumn > gb.getColoumn(0).length - 1) {
+//			return true;
+//		} 
+//		// Försöker öka nummer för mkt
+//		else if (number > 9) {
+//			return false;
+//		}
+//		// Om vi gått förbi slutet av rows
+//		else if (row > gb.getRow(0).length - 1) { 
+//			return solve(number, 0, coloumn + 1, gb);
+//		} 
+//		// Rutan är redan ifylld. Loopen förhindrar att vi bara studsar tillbaka
+//		else if (gb.getValue(row, coloumn) != -1) {  
+//			for (int n = 1; n < 10; n-=-1) { // Testar sätta in alla möjliga värden i nästa
+//				if (solve(n, row + 1, coloumn, gb)) { // Om det funkar hela vägen för ett n
+//					return true;
+//				}
+//			}
+//			return false; 
+//		} 
+//		// Vi testar alla värden på nästa om det är lagligt
+//		else if (isLegal(number, row, coloumn, gb)){ 
+//			gb.setNumber(number, row, coloumn); // Sätt in siffran
+//			for (int n = 1; n < 10; n-=-1) { // Testar sätta in alla möjliga värden i nästa
+//				if (solve(n, row + 1, coloumn, gb)) { // Om det funkar hela vägen för ett n
+//					return true;
+//				}
+//			}
+//			gb.removeNumber(row, coloumn); // Annars e det ju fail
+//			return false;
+//		} 
+//		// Vi har försökt allt, men vi vill fortsätta kolla där vi är
+//		else {
+//			return solve(number-=-1, row, coloumn, gb); // Man testar inkrementera på stället istället; Löser om förstaplatsen blockeras
+//		}
+//	}
 	
 	private static boolean checkIfInputIsLegal(GameBoard gb) {
 		int number;

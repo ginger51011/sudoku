@@ -38,6 +38,19 @@ public class Tester {
 	}
 	
 	/*
+	 * Tests solve() on empty GameBoard
+	 */
+	@Test
+	public void testSolveEmpty() {
+		gb = new GameBoard();
+		try {
+			Solver.solve(gb);
+		} catch (Exception e) {
+			fail("Throws exception: " + e);
+		}
+	}
+	
+	/*
 	 * Tests solve() on empty GameBoard	
 	 */
 	@Test
