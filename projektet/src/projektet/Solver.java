@@ -59,10 +59,12 @@ public class Solver {
 		for(int i=0; i<9; i++) {
 			for(int n=0; n<9; n++) {
 				number=gb.getValue(i, n);
-				if(number != -1) {
+				if(number != -1 ) {
+					gb.removeNumber(i, n);
 					if(isLegal(number, i, n, gb)==false) {
 						return false;
 					}
+					gb.setNumber(number, i, n);
 				}
 			}
 		}

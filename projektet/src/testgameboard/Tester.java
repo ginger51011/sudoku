@@ -20,8 +20,8 @@ public class Tester {
 	@Test
 	public final void testSetNumber() {
 		gb = new GameBoard();
-		gb.setNumber(5, 1, 1);
-		gb.setNumber(3, 6, 5);
+		gb.setNumber(1, 1, 1);
+		gb.setNumber(1, 0, 5);
 		try {
 			gb.setNumber(999, 2, 2);
 			fail("Should raise IllegalArgumentException");
